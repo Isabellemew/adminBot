@@ -5,21 +5,21 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = 3000;
-const TOKEN = '7257032872:AAGrW1dPt1T-Rh3BhDX3Xvtk0_fK3OXHrNo'; // Замените на свой токен
+const TOKEN = '7257032872:AAGrW1dPt1T-Rh3BhDX3Xvtk0_fK3OXHrNo'; // Replace with your token
 const ANNOUNCE_FILE = path.join(__dirname, 'announcements.json');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
-// Главная страница админки
+// Main admin page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Добавление анонса
+// Add announcement
 app.post('/add', (req, res) => {
   const { announcement } = req.body;
-  if (!announcement) return res.status(400).send('Нет текста анонса');
+  if (!announcement) return res.status(400).send('No announcement text');
   let announcements = [];
   if (fs.existsSync(ANNOUNCE_FILE)) {
     announcements = JSON.parse(fs.readFileSync(ANNOUNCE_FILE));
@@ -29,7 +29,7 @@ app.post('/add', (req, res) => {
   res.redirect('/');
 });
 
-// API для получения анонсов
+// API to get announcements
 app.get('/api/announcements', (req, res) => {
   const token = req.query.token;
   if (token !== TOKEN) return res.status(403).send('Forbidden');

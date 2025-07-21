@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Админ-панель мероприятий</title>
+  <title>Admin Event Panel</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 40px; }
     h1 { color: #333; }
@@ -15,14 +15,14 @@
   </style>
 </head>
 <body>
-  <h1>Админ-панель мероприятий</h1>
+  <h1>Admin Event Panel</h1>
   <form method="POST" action="/add">
-    <label for="announcement">Текст анонса:</label><br>
+    <label for="announcement">Announcement text:</label><br>
     <textarea name="announcement" id="announcement" required></textarea><br>
-    <button type="submit">Добавить анонс</button>
+    <button type="submit">Add announcement</button>
   </form>
   <div class="announcements">
-    <h2>Список анонсов</h2>
+    <h2>Announcements list</h2>
     <div id="list"></div>
   </div>
   <script>
@@ -31,7 +31,7 @@
       .then(data => {
         const list = document.getElementById('list');
         if (data.length === 0) {
-          list.innerHTML = '<i>Анонсов нет</i>';
+          list.innerHTML = '<i>No announcements</i>';
         } else {
           list.innerHTML = data.map(a => `<div class="announcement"><div>${a.text}</div><div class="date">${new Date(a.date).toLocaleString()}</div></div>`).join('');
         }

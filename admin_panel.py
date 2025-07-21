@@ -4,15 +4,15 @@ import os
 from datetime import datetime
 
 app = Flask(__name__)
-TOKEN = '7257032872:AAGrW1dPt1T-Rh3BhDX3Xvtk0_fK3OXHrNo'  # Замените на свой токен
+TOKEN = '7257032872:AAGrW1dPt1T-Rh3BhDX3Xvtk0_fK3OXHrNo'  # Replace with your token
 ANNOUNCE_FILE = 'announcements.json'
 
 HTML = '''
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Админ-панель мероприятий</title>
+  <title>Admin Event Panel</title>
   <style>
     body { font-family: Arial, sans-serif; margin: 40px; }
     h1 { color: #333; }
@@ -25,14 +25,14 @@ HTML = '''
   </style>
 </head>
 <body>
-  <h1>Админ-панель мероприятий</h1>
+  <h1>Admin Event Panel</h1>
   <form method="POST" action="/add">
-    <label for="announcement">Текст анонса:</label><br>
+    <label for="announcement">Announcement text:</label><br>
     <textarea name="announcement" id="announcement" required></textarea><br>
-    <button type="submit">Добавить анонс</button>
+    <button type="submit">Add announcement</button>
   </form>
   <div class="announcements">
-    <h2>Список анонсов</h2>
+    <h2>Announcements list</h2>
     {% if announcements %}
       {% for a in announcements %}
         <div class="announcement">
@@ -41,7 +41,7 @@ HTML = '''
         </div>
       {% endfor %}
     {% else %}
-      <i>Анонсов нет</i>
+      <i>No announcements</i>
     {% endif %}
   </div>
 </body>
@@ -67,7 +67,7 @@ def index():
 def add_announcement():
     text = request.form.get('announcement')
     if not text:
-        return 'Нет текста анонса', 400
+        return 'No announcement text', 400
     announcements = load_announcements()
     announcements.append({'text': text, 'date': datetime.now().strftime('%Y-%m-%d %H:%M:%S')})
     save_announcements(announcements)
